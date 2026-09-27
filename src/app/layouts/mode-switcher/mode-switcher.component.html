@@ -1,0 +1,21 @@
+<div class="flex items-center p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-medium select-none">
+  <button
+    type="button"
+    (click)="selectRecruiterMode()"
+    [class]="state.uiMode() === 'recruiter' 
+      ? 'px-3 py-1.5 rounded-md bg-indigo-600 text-white font-semibold shadow-sm transition-all duration-200' 
+      : 'px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors'"
+  >
+    Recruiter
+  </button>
+
+  <button
+    type="button"
+    (click)="selectDeveloperMode()"
+    [class]="state.uiMode() === 'developer' 
+      ? 'px-3 py-1.5 rounded-md bg-indigo-600 text-white font-semibold shadow-sm transition-all duration-200' 
+      : 'px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors'"
+  >
+    Developer
+  </button>
+</div>

@@ -1,0 +1,88 @@
+<header class="w-full bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900 sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo / Brand -->
+      <div class="flex-shrink-0">
+        <a routerLink="/home" class="flex items-center gap-2 group">
+          <span class="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-sm group-hover:bg-indigo-500 transition-colors">
+            B
+          </span>
+          <span class="text-zinc-100 font-semibold text-lg tracking-tight group-hover:text-white transition-colors">
+            Bassant Hossny
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a routerLink="/home" routerLinkActive="text-indigo-400 font-medium" [routerLinkActiveOptions]="{exact: true}"
+           class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors">
+          Home
+        </a>
+        <a routerLink="/about" routerLinkActive="text-indigo-400 font-medium"
+           class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors">
+          About
+        </a>
+        <a routerLink="/projects" routerLinkActive="text-indigo-400 font-medium"
+           class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors">
+          Projects
+        </a>
+        <a routerLink="/skills" routerLinkActive="text-indigo-400 font-medium"
+           class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors">
+          Skills
+        </a>
+        <a routerLink="/contact" routerLinkActive="text-indigo-400 font-medium"
+           class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Desktop and Mobile Mode Switcher -->
+      <app-mode-switcher></app-mode-switcher>
+
+      <!-- Mobile menu button -->
+      <div class="flex md:hidden items-center gap-2">
+        <button (click)="toggleMenu()" type="button"
+                class="inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-900 focus:outline-none"
+                aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          @if (!isMenuOpen()) {
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          } @else {
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Links -->
+  <div [class.hidden]="!isMenuOpen()" class="md:hidden bg-zinc-950 border-b border-zinc-900 animate-fade-in">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a routerLink="/home" routerLinkActive="bg-zinc-900 text-indigo-400 font-medium" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()"
+         class="block px-3 py-2 rounded-md text-base text-zinc-400 hover:text-white hover:bg-zinc-900">
+        Home
+      </a>
+      <a routerLink="/about" routerLinkActive="bg-zinc-900 text-indigo-400 font-medium" (click)="closeMenu()"
+         class="block px-3 py-2 rounded-md text-base text-zinc-400 hover:text-white hover:bg-zinc-900">
+        About
+      </a>
+      <a routerLink="/projects" routerLinkActive="bg-zinc-900 text-indigo-400 font-medium" (click)="closeMenu()"
+         class="block px-3 py-2 rounded-md text-base text-zinc-400 hover:text-white hover:bg-zinc-900">
+        Projects
+      </a>
+      <a routerLink="/skills" routerLinkActive="bg-zinc-900 text-indigo-400 font-medium" (click)="closeMenu()"
+         class="block px-3 py-2 rounded-md text-base text-zinc-400 hover:text-white hover:bg-zinc-900">
+        Skills
+      </a>
+      <a routerLink="/contact" routerLinkActive="bg-zinc-900 text-indigo-400 font-medium" (click)="closeMenu()"
+         class="block px-3 py-2 rounded-md text-base text-zinc-400 hover:text-white hover:bg-zinc-900">
+        Contact
+      </a>
+    </div>
+  </div>
+</header>

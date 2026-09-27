@@ -1,0 +1,63 @@
+<section class="flex-grow flex items-center justify-center py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+  <div class="w-full bg-zinc-900/40 border border-zinc-900 rounded-3xl p-8 sm:p-12 text-center space-y-8 relative overflow-hidden">
+    <!-- Glow effect background -->
+    <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+      <div class="w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[80px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-lg mx-auto space-y-6">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight select-none">
+        Get In Touch
+      </h2>
+      
+      <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+        {{ data.description }}
+      </p>
+
+      <!-- Email Copy Container -->
+      <div class="bg-zinc-950/80 border border-zinc-800/80 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-left w-full sm:w-auto">
+          <span class="text-xs text-zinc-500 block uppercase font-bold tracking-wider mb-1 select-none">Direct Email</span>
+          <span class="text-sm sm:text-base text-zinc-200 select-all font-medium break-all">
+            {{ data.emailAddress }}
+          </span>
+        </div>
+        
+        <app-button 
+          [variant]="copied() ? 'secondary' : 'primary'"
+          (btnClick)="copyEmail()"
+          customClass="w-full sm:w-auto text-xs min-w-[120px]"
+        >
+          @if (copied()) {
+            <span class="flex items-center gap-1.5 text-green-400">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Copied!
+            </span>
+          } @else {
+            <span class="flex items-center gap-1.5">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125v-9.75A1.125 1.125 0 014.875 9.75H8.25m7.5 7.5l3 3m-3-3l-3 3m3-3V15m0 3h3" />
+              </svg>
+              Copy Address
+            </span>
+          }
+        </app-button>
+      </div>
+
+      <!-- Social Shortcuts -->
+      <div class="flex items-center justify-center gap-6 pt-4 select-none">
+        <a [href]="data.githubUrl" target="_blank" rel="noopener noreferrer"
+           class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-150 py-2 px-3 rounded-lg hover:bg-zinc-900 border border-transparent hover:border-zinc-800">
+          <span class="text-sm font-medium">GitHub Profile</span>
+        </a>
+        
+        <a [href]="data.linkedinUrl" target="_blank" rel="noopener noreferrer"
+           class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-150 py-2 px-3 rounded-lg hover:bg-zinc-900 border border-transparent hover:border-zinc-800">
+          <span class="text-sm font-medium">LinkedIn Profile</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

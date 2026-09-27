@@ -1,0 +1,350 @@
+/* =========================================================
+   BASSANT TERMINAL INPUT
+   ========================================================= */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+
+/* =========================================================
+   Command Form
+   ========================================================= */
+
+.terminal-input-form {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  gap: 8px;
+
+  padding: 2px 0;
+
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size: 12px;
+  line-height: 1.6;
+
+  background: transparent;
+}
+
+
+/* =========================================================
+   Bash Prompt
+   ========================================================= */
+
+.terminal-prompt {
+  flex-shrink: 0;
+
+  color: #a78bfa;
+
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   Input Shell
+   ========================================================= */
+
+.terminal-input-shell {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  flex: 1 1 auto;
+
+  height: 21px;
+}
+
+
+/* =========================================================
+   Command Input
+   ========================================================= */
+
+.terminal-command-input {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #ede9fe;
+
+  font-family:
+    "Cascadia Mono",
+    "Segoe UI Mono",
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  line-height: 1.6;
+
+  text-align: left;
+  direction: ltr;
+
+  /* Hide native caret */
+  caret-color: transparent !important;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   Placeholder
+   ========================================================= */
+
+.terminal-command-input::placeholder {
+  color: rgba(196, 181, 253, 0.48);
+
+  opacity: 1;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   Focus
+   ========================================================= */
+
+.terminal-command-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   Selection
+   ========================================================= */
+
+.terminal-command-input::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   Custom Caret
+   ========================================================= */
+
+/*
+ * THIS controls the thickness.
+ *
+ * Change width to:
+ *
+ * 2px = subtle
+ * 3px = normal
+ * 4px = bold
+ * 5px = very bold
+ */
+
+/* =========================================================
+   Custom Caret
+   ========================================================= */
+
+.terminal-custom-caret {
+  position: absolute;
+
+  top: 50%;
+  left: 0;
+
+  width: 5px;
+  height: 18px;
+
+  transform: translateY(-50%);
+
+  display: block;
+
+  background: #c4b5fd;
+
+  border-radius: 1px;
+
+  pointer-events: none;
+
+  z-index: 20;
+
+  box-sizing: border-box;
+
+  animation: terminal-caret-blink 1s steps(1) infinite;
+}
+
+
+@keyframes terminal-caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   Caret Measurement
+   ========================================================= */
+
+/*
+ * This element is invisible.
+ * Its only job is measuring the exact width
+ * of the text before the caret.
+ */
+
+.terminal-caret-measure {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  visibility: hidden;
+
+  white-space: pre;
+
+  pointer-events: none;
+
+  font-family:
+    "Cascadia Mono",
+    "Segoe UI Mono",
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  line-height: 1.6;
+
+  padding: 0;
+  margin: 0;
+
+  border: 0;
+}
+
+
+/* =========================================================
+   Caret Animation
+   ========================================================= */
+
+@keyframes terminal-caret-blink {
+
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   Remove Browser Styling
+   ========================================================= */
+
+.terminal-command-input::-webkit-search-decoration,
+.terminal-command-input::-webkit-search-cancel-button,
+.terminal-command-input::-webkit-search-results-button,
+.terminal-command-input::-webkit-search-results-decoration {
+  display: none;
+}
+
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .terminal-input-form {
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  .terminal-prompt {
+    font-size: 12px;
+  }
+
+  .terminal-command-input,
+  .terminal-caret-measure {
+    font-size: 11px;
+  }
+
+  .terminal-custom-caret {
+    width: 4px;
+    height: 16px;
+  }
+}
+
+
+/* =========================================================
+   Small Mobile
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .terminal-input-form {
+    gap: 6px;
+    font-size: 10px;
+  }
+
+  .terminal-prompt {
+    font-size: 11px;
+  }
+
+  .terminal-command-input,
+  .terminal-caret-measure {
+    font-size: 10px;
+  }
+
+  .terminal-custom-caret {
+    width: 4px;
+    height: 14px;
+  }
+}

@@ -1,0 +1,51 @@
+<!-- Hero Section -->
+<section class="flex-shrink-0 flex items-center justify-center relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 border-b border-zinc-900/40">
+  <!-- Glow effect backdrop -->
+  <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+    <div class="w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] absolute translate-y-[-10%]"></div>
+    <div class="w-[300px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] absolute translate-x-[20%] translate-y-[10%]"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <!-- Onboarding / Availability Badge -->
+    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6 select-none">
+      <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+      {{ data.availabilityText }}
+    </span>
+
+    <!-- Main Title & Role -->
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-4">
+      {{ data.name }}
+    </h1>
+    <h2 class="text-xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 via-violet-300 to-indigo-200 bg-clip-text text-transparent mb-6">
+      {{ data.role }}
+    </h2>
+
+    <!-- Introduction -->
+    <p class="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 leading-relaxed mb-10">
+      {{ data.introduction }}
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <app-button variant="primary" size="lg" [routerLink]="['/projects']" customClass="w-full sm:w-auto shadow-lg shadow-indigo-600/15">
+        View Projects
+        <svg class="h-4 w-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </app-button>
+      
+      <app-button variant="secondary" size="lg" [routerLink]="['/contact']" customClass="w-full sm:w-auto">
+        Contact Me
+      </app-button>
+    </div>
+  </div>
+</section>
+
+<!-- Composed Business Sections -->
+<div class="space-y-4">
+  <app-about></app-about>
+  <app-projects></app-projects>
+  <app-skills></app-skills>
+  <app-contact></app-contact>
+</div>

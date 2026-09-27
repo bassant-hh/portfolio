@@ -1,0 +1,39 @@
+<form
+  (submit)="onSubmit($event)"
+  class="terminal-input-form"
+>
+  <span
+    class="terminal-prompt"
+    aria-hidden="true"
+  >
+    &gt;
+  </span>
+
+ <div class="terminal-input-shell">
+
+  <span
+    #caret
+    class="terminal-custom-caret"
+    aria-hidden="true"
+  ></span>
+
+  <input
+    #cliInput
+    type="text"
+    name="command"
+    [(ngModel)]="commandText"
+    (input)="updateCaret()"
+    (keydown.arrowUp)="$event.preventDefault(); onArrowUp(); updateCaret()"
+    (keydown.arrowDown)="$event.preventDefault(); onArrowDown(); updateCaret()"
+    (focus)="updateCaret()"
+    (blur)="updateCaret()"
+    class="terminal-command-input"
+    placeholder="Curious? Type a command..."
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+  />
+
+</div>
+</form>

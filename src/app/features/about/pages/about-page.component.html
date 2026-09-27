@@ -1,0 +1,52 @@
+<section class="flex-grow py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+  <!-- Section Header -->
+  <app-section-header [title]="data.title" [subtitle]="data.subtitle"></app-section-header>
+
+  <!-- Content Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <!-- Biography Column -->
+    <div class="md:col-span-2 space-y-6">
+      <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-6 sm:p-8 space-y-4">
+        <h3 class="text-lg font-semibold text-white">{{ data.biographyTitle }}</h3>
+        
+        @for (paragraph of data.paragraphs; track paragraph) {
+          <p class="text-zinc-400 leading-relaxed text-sm sm:text-base">
+            {{ paragraph }}
+          </p>
+        }
+      </div>
+    </div>
+
+    <!-- Meta/Timeline Column -->
+    <div class="space-y-8">
+      <!-- Experience Section -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-400">Experience</h3>
+        
+        <div class="relative border-l border-zinc-800 pl-4 space-y-6 ml-2">
+          @for (exp of data.experience; track exp.role) {
+            <div>
+              <span class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-indigo-500 border border-zinc-950"></span>
+              <span class="text-xs text-zinc-500">{{ exp.period }}</span>
+              <h4 class="text-sm font-semibold text-zinc-100 mt-1">{{ exp.role }}</h4>
+              <p class="text-xs text-zinc-400">{{ exp.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-400">Education</h3>
+        
+        @for (edu of data.education; track edu.degree) {
+          <div class="bg-zinc-900/40 border border-zinc-900 rounded-xl p-5">
+            <h4 class="text-sm font-semibold text-zinc-100">{{ edu.degree }}</h4>
+            <p class="text-xs text-indigo-400 mt-1">{{ edu.specialization }}</p>
+            <p class="text-xs text-zinc-500 mt-2">{{ edu.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

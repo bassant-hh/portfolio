@@ -1,0 +1,91 @@
+<!-- =========================================================
+     BASSANT WORKSPACE TERMINAL
+     ========================================================= -->
+
+<div class="terminal-workspace">
+
+  <!-- Terminal Window -->
+  <section class="terminal-window" [ngClass]="{
+      'terminal-expanded': state.terminalExpanded()
+    }" aria-label="Bassant Terminal">
+
+    <!-- =====================================================
+         Terminal Header
+         ===================================================== -->
+    <header class="terminal-header">
+
+      <!-- Three terminal controls -->
+      <div class="terminal-controls" aria-hidden="true">
+        <span class="control-dot control-red"></span>
+        <span class="control-dot control-yellow"></span>
+        <span class="control-dot control-green"></span>
+      </div>
+
+      <!-- Bassant Terminal -->
+      <div class="terminal-identity">
+        <span class="terminal-title">
+          bassant terminal
+        </span>
+      </div>
+
+      <!-- Profile -->
+      <div class="terminal-avatar">
+        <img src="/bassant-photo.jpeg" alt="Bassant Hossny" />
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         Terminal Body
+         ===================================================== -->
+    <div class="terminal-body">
+
+      <div class="terminal-content" [ngClass]="{
+          'terminal-content-split': projectsMode
+        }">
+
+        <!-- =================================================
+     Terminal Stream
+     ================================================= -->
+        <div class="terminal-stream" [ngClass]="{
+    'terminal-stream-split': projectsMode
+  }">
+          <!-- History + Input MUST scroll together -->
+          <div #scrollContainer class="terminal-scroll-area">
+
+            <!-- Terminal output -->
+            <div class="terminal-history">
+              <app-terminal-history></app-terminal-history>
+            </div>
+
+            <!-- Current command -->
+            <div class="terminal-input-wrapper">
+              <app-terminal-input></app-terminal-input>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- =================================================
+             Project Viewer
+             ================================================= -->
+        @if (projectsMode) {
+
+        <div class="project-panel">
+
+          <app-project-viewer [project]="currentProject" (onPrev)="prevProject()"
+            (onNext)="nextProject()"></app-project-viewer>
+
+        </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

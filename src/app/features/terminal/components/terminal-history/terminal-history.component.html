@@ -1,0 +1,16 @@
+@for (line of historyService.history(); track line.id) {
+  @if (line.type === 'input') {
+    <div class="flex gap-2">
+      <span class="text-[#7C3AED] select-none font-bold shrink-0">›</span>
+      <span class="text-[#C4B5FD] font-semibold select-text break-all">
+        {{ line.text }}
+      </span>
+    </div>
+  } @else if (line.type === 'output') {
+    <div [innerHTML]="line.text" class="text-[#E5E7EB] whitespace-pre-wrap select-text"></div>
+  } @else {
+    <div class="error select-text whitespace-pre-wrap">
+      {{ line.text }}
+    </div>
+  }
+}

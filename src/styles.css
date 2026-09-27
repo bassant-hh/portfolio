@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Page Backgrounds ─────────────────────────────*/
+  --bg: #F3F0FF;
+  --bg-subtle: #F8F6FF;
+  --surface: #FFFFFF;
+
+  /* ── Purple Brand Scale ─────────────────────── */
+  --primary: #8B5CF6;
+  --primary-hover: #7C3AED;
+  --primary-deep: #5B21B6;
+  --primary-dark: #4C1D95;
+  --primary-light: #C4B5FD;
+  --very-light: #EDE9FE;
+
+  /* ── Borders ────────────────────────────────── */
+  --border: #DDD6FE;
+  --border-soft: #E9DDFB;
+
+  /* ── Text Scale ─────────────────────────────── */
+  --text: #1F1937;
+  --text-secondary: #514A67;
+  --muted: #6B7280;
+
+  /* ── Terminal System  ────────────────────────── */
+  --terminal: #2E1065;
+  --terminal-surface: #4C1D95;
+  --terminal-border: #6D28D9;
+  --terminal-text: #F5F3FF;
+  --terminal-prompt: #C4B5FD;
+  --terminal-command: #A78BFA;
+  --terminal-highlight: #DDD6FE;
+  --terminal-muted: #B8A9D9;
+}
+
+html, body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar-track {
+  background: var(--very-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* ── Terminal Semantic Colors ─────────────────────────
+   All semantic states use purple shades.
+   .error is distinguished via font-weight, not hue.
+    ───────────────────────────────────────────────────── */
+.highlight {
+  color: var(--terminal-highlight) !important; /* #DDD6FE — bright purple-white */
+}
+
+.secondary {
+  color: var(--terminal-prompt) !important; /* #C4B5FD — light purple */
+}
+
+.main {
+  color: var(--terminal-text) !important; /* #F5F3FF — near-white purple */
+}
+
+.muted {
+  color: var(--terminal-muted) !important; /* #B8A9D9 — muted purple */
+}
+
+.error {
+  color: var(--terminal-highlight) !important; /* #DDD6FE — distinguished via weight */
+  font-weight: 600;
+}
+
+.success {
+  color: var(--terminal-command) !important; /* #A78BFA — mid purple */
+}

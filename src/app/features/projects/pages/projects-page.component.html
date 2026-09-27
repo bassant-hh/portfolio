@@ -1,0 +1,87 @@
+<section class="flex-grow py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+  <!-- Section Header -->
+  <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <app-section-header
+      title="Featured Projects"
+      subtitle="A collection of full-stack systems, frontend architectures, and tools built with performance and clean code in mind."
+    ></app-section-header>
+
+    <!-- Category Info & Clear Button -->
+    @if (categoryParam()) {
+      <div class="flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-xl text-sm self-start sm:self-auto select-none">
+        <span class="text-indigo-400 font-medium font-sans">
+          Filtered by Category: <span class="capitalize font-bold">{{ categoryParam() }}</span>
+        </span>
+        <a [routerLink]="[]" [queryParams]="{ category: null }" queryParamsHandling="merge"
+           class="text-xs text-zinc-500 hover:text-zinc-300 font-bold underline transition-colors cursor-pointer ml-1">
+          Clear
+        </a>
+      </div>
+    }
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for (project of filteredProjects(); track project.title) {
+      <app-card [hoverable]="true" customClass="flex flex-col h-full !p-0">
+        <!-- Decorative Visual Header with gradient -->
+        <div class="h-32 bg-gradient-to-br {{ project.gradientClass }} border-b border-zinc-900/50 flex items-center justify-center select-none relative overflow-hidden">
+          <span class="text-sm font-semibold tracking-wide text-zinc-400 group-hover:scale-105 transition-transform duration-300">
+            {{ project.title }}
+          </span>
+          <div class="absolute inset-0 bg-zinc-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <!-- Header: Title & Status -->
+            <div class="flex items-center justify-between mb-3 border-b border-zinc-900/40 pb-2">
+              <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
+                {{ project.title }}
+              </h3>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-zinc-900 border border-zinc-800 text-zinc-400 select-none">
+                {{ project.status }}
+              </span>
+            </div>
+
+            <!-- Description -->
+            <p class="text-sm text-zinc-400 mb-6 leading-relaxed">
+              {{ project.description }}
+            </p>
+          </div>
+
+          <!-- Tech Stack & Links -->
+          <div>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              @for (tag of project.techStack; track tag) {
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 select-none">
+                  {{ tag }}
+                </span>
+              }
+            </div>
+
+            <!-- Action Links -->
+            <div class="flex items-center gap-4 pt-4 border-t border-zinc-900">
+              <a [href]="project.liveUrl" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center text-sm font-medium text-zinc-300 hover:text-white transition-colors group">
+                Live Demo
+                <svg class="h-4 w-4 ml-1.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </a>
+              <a [href]="project.gitUrl" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors">
+                GitHub Source
+              </a>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    } @empty {
+      <div class="col-span-full py-16 text-center text-zinc-500 font-mono text-sm">
+        No projects found matching category.
+      </div>
+    }
+  </div>
+</section>
