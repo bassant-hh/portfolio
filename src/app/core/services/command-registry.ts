@@ -130,19 +130,9 @@ export class CommandRegistry {
       aliases: ['portfolio'],
       usage: 'projects',
       execute: () => {
-        const output: string[] = [
-          `[${formatTerminalOutput('FEATURED PROJECTS', 'highlight')}]`,
-          ''
+        return [
+          formatTerminalOutput('Opening Projects Workspace...', 'muted')
         ];
-        PROJECTS_DATA.forEach(p => {
-          output.push(`[${formatTerminalOutput(p.title.toUpperCase(), 'highlight')}]`);
-          output.push(`${formatTerminalOutput('Description:', 'secondary')} ${formatTerminalOutput(p.description, 'main')}`);
-          output.push(`${formatTerminalOutput('Tech Stack:', 'secondary')} ${formatTerminalOutput(p.techStack.join(', '), 'main')}`);
-          output.push(`${formatTerminalOutput('Status:', 'secondary')} ${formatTerminalOutput(p.status, 'success')}`);
-          output.push(formatSeparator());
-        });
-        output.pop(); // Remove trailing separator
-        return output;
       }
     });
 
@@ -362,6 +352,19 @@ export class CommandRegistry {
           formatTerminalOutput('Workspace Ready.', 'highlight'),
           '',
           formatTerminalOutput('Curious enough to build it.', 'muted')
+        ];
+      }
+    });
+
+    // 13. CERTIFICATES
+    this.register({
+      name: 'certificates',
+      description: 'View technical certifications',
+      aliases: ['certs'],
+      usage: 'certificates',
+      execute: () => {
+        return [
+          formatTerminalOutput('Opening Certificates Workspace...', 'muted')
         ];
       }
     });

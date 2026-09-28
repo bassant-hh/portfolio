@@ -7,4 +7,5 @@ export interface Project {
   category: 'frontend' | 'backend' | 'ai' | 'fullstack';
   status: string;
   gradientClass: string;
+  imageUrl?: string;
 }

@@ -1,12 +1,15 @@
-/* Project Viewer Custom Styles */
-.project-viewer-container {
+.certificate-viewer-container {
   box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.05);
   overflow-y: auto;
 }
 
-.project-image-wrapper {
+.certificate-image-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  max-height: 280px;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
@@ -14,12 +17,14 @@
   border-radius: 0.5rem;
   border: 1px solid rgba(221, 214, 254, 0.1);
   box-shadow: inset 0 0 15px rgba(124, 58, 237, 0.1);
+  padding: 8px;
 }
 
-.project-image-wrapper img {
+.certificate-image {
   display: block;
   width: 100%;
   height: 100%;
+  max-height: 264px;
   object-fit: contain;
   object-position: center;
 }

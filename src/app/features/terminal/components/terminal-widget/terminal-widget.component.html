@@ -6,7 +6,8 @@
 
   <!-- Terminal Window -->
   <section class="terminal-window" [ngClass]="{
-      'terminal-expanded': state.terminalExpanded()
+      'terminal-expanded': state.terminalExpanded(),
+      'terminal-projects-mode': projectsMode || certificatesMode
     }" aria-label="Bassant Terminal">
 
     <!-- =====================================================
@@ -42,15 +43,66 @@
     <div class="terminal-body">
 
       <div class="terminal-content" [ngClass]="{
-          'terminal-content-split': projectsMode
+          'terminal-content-split': projectsMode || certificatesMode
         }">
 
         <!-- =================================================
-     Terminal Stream
-     ================================================= -->
+             Terminal Stream & Left Panel
+             ================================================= -->
         <div class="terminal-stream" [ngClass]="{
-    'terminal-stream-split': projectsMode
-  }">
+            'terminal-stream-split': projectsMode || certificatesMode
+          }">
+
+          <!-- Project List Sidebar (1/3 Left Panel Header) -->
+          @if (projectsMode) {
+            <div class="workspace-projects-sidebar">
+              <div class="projects-sidebar-header">
+                <span class="projects-sidebar-title">PROJECTS</span>
+                <span class="projects-sidebar-count">{{ formattedProjectCount }}</span>
+              </div>
+              <ul class="projects-list">
+                @for (proj of projects; track proj.title; let i = $index) {
+                  <li
+                    (click)="selectProject(i)"
+                    class="project-item"
+                    [class.active]="i === activeProjectIndex"
+                  >
+                    <span class="project-item-bullet">{{ i === activeProjectIndex ? '●' : '○' }}</span>
+                    <div class="project-item-info">
+                      <span class="project-item-title">{{ proj.title }}</span>
+                      <span class="project-item-category">{{ proj.category }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+
+          <!-- Certificates List Sidebar (1/3 Left Panel Header) -->
+          @if (certificatesMode) {
+            <div class="workspace-projects-sidebar">
+              <div class="projects-sidebar-header">
+                <span class="projects-sidebar-title">CERTIFICATIONS</span>
+                <span class="projects-sidebar-count">{{ formattedCertificateCount }}</span>
+              </div>
+              <ul class="projects-list">
+                @for (cert of certificates; track cert.title; let i = $index) {
+                  <li
+                    (click)="selectCertificate(i)"
+                    class="project-item"
+                    [class.active]="i === activeCertificateIndex"
+                  >
+                    <span class="project-item-bullet">{{ i === activeCertificateIndex ? '●' : '○' }}</span>
+                    <div class="project-item-info">
+                      <span class="project-item-title">{{ cert.title }}</span>
+                      <span class="project-item-category">Technical</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+
           <!-- History + Input MUST scroll together -->
           <div #scrollContainer class="terminal-scroll-area">
 
@@ -69,7 +121,7 @@
 
 
         <!-- =================================================
-             Project Viewer
+             Right Panel: Project Viewer (2/3 Width)
              ================================================= -->
         @if (projectsMode) {
 
@@ -77,6 +129,20 @@
 
           <app-project-viewer [project]="currentProject" (onPrev)="prevProject()"
             (onNext)="nextProject()"></app-project-viewer>
+
+        </div>
+
+        }
+
+        <!-- =================================================
+             Right Panel: Certificate Viewer (2/3 Width)
+             ================================================= -->
+        @if (certificatesMode) {
+
+        <div class="project-panel">
+
+          <app-certificate-viewer [certificate]="currentCertificate" (onPrev)="prevCertificate()"
+            (onNext)="nextCertificate()"></app-certificate-viewer>
 
         </div>
 

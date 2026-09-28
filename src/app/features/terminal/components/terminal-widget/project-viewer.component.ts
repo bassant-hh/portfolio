@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project } from '../../../projects/models/project.model';
 
@@ -9,10 +9,22 @@ import { Project } from '../../../projects/models/project.model';
   templateUrl: './project-viewer.component.html',
   styleUrl: './project-viewer.component.css'
 })
-export class ProjectViewerComponent {
+export class ProjectViewerComponent implements OnChanges {
   @Input() project: Project | null = null;
   @Output() onPrev = new EventEmitter<void>();
   @Output() onNext = new EventEmitter<void>();
+
+  imageFailed: boolean = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['project']) {
+      this.imageFailed = false;
+    }
+  }
+
+  onImageError(): void {
+    this.imageFailed = true;
+  }
 
   get statusClass(): string {
     const status = this.project?.status?.toLowerCase() || '';
