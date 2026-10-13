@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { CommandRegistryEntry } from '../../features/terminal/models/command-registry-entry.model';
 import { ABOUT_DATA } from '../../features/about/data/about.data';
-import { PROJECTS_DATA } from '../../features/projects/data/projects.data';
 import { SKILLS_DATA } from '../../features/skills/data/skills.data';
+import { CONTACT_DATA } from '../../features/contact/data/contact.data';
+import { HOME_DATA } from '../../features/home/data/home.data';
+import { PROJECTS_DATA } from '../../features/projects/data/projects.data';
 import {
   formatTerminalOutput,
-  formatTitle,
   formatLabelValue,
   formatSeparator
 } from '../../features/terminal/helpers/terminal-formatter';
@@ -14,7 +15,7 @@ import {
   providedIn: 'root'
 })
 export class UnknownCommandStrategy {
-  handle(command: string, args: string[]): string | string[] {
+  handle(command: string, _args: string[]): string | string[] {
     return [
       formatTerminalOutput(`Command not found: "${command}"`, 'error'),
       `Type ${formatTerminalOutput('help', 'highlight')} to see all available commands.`
@@ -83,19 +84,16 @@ export class CommandRegistry {
       execute: () => {
         return [
           `[${formatTerminalOutput('NAME', 'secondary')}]`,
-          formatTerminalOutput('Bassant Hossny', 'main'),
+          formatTerminalOutput(HOME_DATA.name, 'main'),
           '',
           `[${formatTerminalOutput('ROLE', 'secondary')}]`,
-          formatTerminalOutput('Full Stack Developer', 'main'),
+          formatTerminalOutput(HOME_DATA.role, 'main'),
           '',
           `[${formatTerminalOutput('PHILOSOPHY', 'secondary')}]`,
           formatTerminalOutput('Curious enough to build it.', 'main'),
           '',
           `[${formatTerminalOutput('ABOUT', 'secondary')}]`,
-          formatTerminalOutput(
-            'Passionate software developer specializing in high-performance web systems, reactive architectures, and developer console environments.',
-            'main'
-          )
+          formatTerminalOutput(ABOUT_DATA.paragraphs[0], 'main')
         ];
       }
     });
@@ -116,7 +114,7 @@ export class CommandRegistry {
         });
         output.push(`[${formatTerminalOutput('EDUCATION', 'secondary')}]`);
         ABOUT_DATA.education.forEach(edu => {
-          output.push(`• ${formatTerminalOutput(edu.degree, 'highlight')} in ${formatTerminalOutput(edu.specialization, 'main')}`);
+          output.push(`• ${formatTerminalOutput(edu.degree, 'highlight')} — ${formatTerminalOutput(edu.specialization, 'main')}`);
           output.push(`  ${formatTerminalOutput(edu.description, 'muted')}`);
         });
         return output;
@@ -186,12 +184,14 @@ export class CommandRegistry {
       aliases: [],
       usage: 'contact',
       execute: () => {
+        const githubHandle = CONTACT_DATA.githubUrl.replace(/^https?:\/\//, '');
+        const linkedinHandle = CONTACT_DATA.linkedinUrl.replace(/^https?:\/\/(www\.)?/, '');
         return [
           `[${formatTerminalOutput('CONTACT LINKS', 'highlight')}]`,
           '',
-          formatLabelValue('Email:   ', 'bassant.hossny@gmail.com'),
-          formatLabelValue('GitHub:  ', 'github.com/bassant'),
-          formatLabelValue('LinkedIn:', 'linkedin.com/in/bassant')
+          formatLabelValue('Email:   ', CONTACT_DATA.emailAddress),
+          formatLabelValue('GitHub:  ', githubHandle),
+          formatLabelValue('LinkedIn:', linkedinHandle)
         ];
       }
     });
@@ -206,10 +206,10 @@ export class CommandRegistry {
         return [
           `[${formatTerminalOutput('DEVELOPMENT STACK', 'highlight')}]`,
           '',
-          formatLabelValue('Frontend:', 'Angular 20, TypeScript, Tailwind CSS, RxJS, Signals'),
-          formatLabelValue('Backend: ', 'Node.js, Express, NestJS, RESTful APIs, Python, FastAPI'),
-          formatLabelValue('Database:', 'MongoDB, Redis, PostgreSQL, MySQL'),
-          formatLabelValue('DevOps:  ', 'Git, GitHub Actions, Docker, Webpack, Esbuild')
+          formatLabelValue('Frontend:', 'Angular, React, TypeScript, JavaScript, HTML5, CSS3, Bootstrap, Tailwind CSS, RxJS, Signals'),
+          formatLabelValue('Backend: ', 'Node.js, Express.js, NestJS, REST APIs, JWT, Socket.IO'),
+          formatLabelValue('Database:', 'MongoDB, Mongoose, PostgreSQL, MySQL, Prisma'),
+          formatLabelValue('Tools:   ', 'Git, GitHub, Docker, Leaflet')
         ];
       }
     });
@@ -224,8 +224,8 @@ export class CommandRegistry {
         return [
           `[${formatTerminalOutput('RESUME SUMMARY', 'highlight')}]`,
           '',
-          formatLabelValue('Profile: ', 'Bassant Hossny - Full Stack / MEARN Developer'),
-          formatLabelValue('Email:   ', 'bassant.hossny@gmail.com'),
+          formatLabelValue('Profile: ', `${HOME_DATA.name} - ${HOME_DATA.role}`),
+          formatLabelValue('Email:   ', CONTACT_DATA.emailAddress),
           '',
           `${formatTerminalOutput('Download PDF:', 'secondary')} ${formatTerminalOutput('/assets/resume.pdf', 'highlight')}`
         ];
@@ -248,83 +248,59 @@ export class CommandRegistry {
       name: 'inspect',
       description: 'Open a project case study breakdown',
       aliases: [],
-      usage: 'inspect [rag-book-assistant | analytics-dashboard | search-indexer]',
+      usage: 'inspect [project-name]',
       execute: (args) => {
         const target = args[0] ? args[0].toLowerCase().trim() : '';
-        
+
+        // Build slug list from real projects for the help message
+        const slugList = PROJECTS_DATA
+          .map(p => p.title.toLowerCase().replace(/\s+/g, '-'))
+          .join(' | ');
+
         if (!target) {
-          return [
+          const lines: string[] = [
             formatTerminalOutput('Error: Missing project name argument.', 'error'),
-            `${formatTerminalOutput('Usage:', 'secondary')} inspect [rag-book-assistant | analytics-dashboard | search-indexer]`,
+            `${formatTerminalOutput('Usage:', 'secondary')} inspect [project-name]`,
             '',
-            formatTerminalOutput('Available projects:', 'secondary'),
-            `  ${formatTerminalOutput('rag-book-assistant', 'highlight')}    - AI RAG Book Query system`,
-            `  ${formatTerminalOutput('analytics-dashboard', 'highlight')}   - Real-time diagnostic console dashboard`,
-            `  ${formatTerminalOutput('search-indexer', 'highlight')}        - Async Redis content indexing processor`
+            formatTerminalOutput('Available projects:', 'secondary')
           ];
+          PROJECTS_DATA.forEach(p => {
+            lines.push(`  ${formatTerminalOutput(p.title.toLowerCase().replace(/\s+/g, '-'), 'highlight')}  - ${p.description.split('.')[0]}.`);
+          });
+          return lines;
         }
 
-        if (target.includes('rag') || target.includes('book')) {
+        // Match against real PROJECTS_DATA by title word overlap
+        const matched = PROJECTS_DATA.find(p =>
+          p.title.toLowerCase().replace(/\s+/g, '-').includes(target) ||
+          target.includes(p.title.toLowerCase().replace(/\s+/g, '-')) ||
+          p.title.toLowerCase().split(' ').some(word => target.includes(word))
+        );
+
+        if (!matched) {
           return [
-            formatSeparator(),
-            `[${formatTerminalOutput('CASE STUDY: RAG BOOK ASSISTANT', 'highlight')}]`,
-            formatSeparator(),
-            `• ${formatLabelValue('Project Type:', 'AI Application / Local Document Pipeline')}`,
-            `• ${formatLabelValue('Purpose:', 'Allows users to index and query document content.')}`,
-            `• ${formatLabelValue('Frontend Stack:', 'Angular standalone widgets')}`,
-            `• ${formatLabelValue('Backend Stack:', 'NestJS, TypeScript, LangChain')}`,
-            `• ${formatLabelValue('Database:', 'Vector Embeddings cache storage')}`,
-            `• ${formatLabelValue('Architecture:', 'Microservices / RAG Context pipeline')}`,
-            `• ${formatLabelValue('Key Features:', 'PDF text partitioning, context search matching')}`,
-            `• ${formatLabelValue('Tech Challenges:', 'Token limits and context latency issues')}`,
-            `• ${formatLabelValue('Notable Decisions:', 'Adopted local model pipelines for high security')}`,
-            `• ${formatLabelValue('Current Status:', 'Production (V1.2.0)')}`,
-            formatSeparator()
+            formatTerminalOutput(`Error: Unknown project "${target}".`, 'error'),
+            `${formatTerminalOutput('Try:', 'secondary')} inspect [${slugList}]`
           ];
         }
 
-        if (target.includes('analytics') || target.includes('dashboard')) {
-          return [
-            formatSeparator(),
-            `[${formatTerminalOutput('CASE STUDY: DEVELOPER ANALYTICS DASHBOARD', 'highlight')}]`,
-            formatSeparator(),
-            `• ${formatLabelValue('Project Type:', 'Frontend Web Interface / Diagnostic Panel')}`,
-            `• ${formatLabelValue('Purpose:', 'Visualizing log queues, metrics and Diagnostics.')}`,
-            `• ${formatLabelValue('Frontend Stack:', 'Angular 20, RxJS state loops, Tailwind CSS')}`,
-            `• ${formatLabelValue('Backend Stack:', 'Node.js, Express')}`,
-            `• ${formatLabelValue('Database:', 'MongoDB metrics persistence')}`,
-            `• ${formatLabelValue('Architecture:', 'Redux-like Reactive Streams (Signals + RxJS)')}`,
-            `• ${formatLabelValue('Key Features:', 'Real-time metric plots, custom log streaming views')}`,
-            `• ${formatLabelValue('Tech Challenges:', 'High update frequencies triggering layout lag')}`,
-            `• ${formatLabelValue('Notable Decisions:', 'Coalesced and debounced event ticks to ensure 60fps')}`,
-            `• ${formatLabelValue('Current Status:', 'Beta')}`,
-            formatSeparator()
-          ];
-        }
-
-        if (target.includes('indexer') || target.includes('search')) {
-          return [
-            formatSeparator(),
-            `[${formatTerminalOutput('CASE STUDY: NEURAL SEARCH INDEXER', 'highlight')}]`,
-            formatSeparator(),
-            `• ${formatLabelValue('Project Type:', 'Backend Microservice / Data Pipeline Engine')}`,
-            `• ${formatLabelValue('Purpose:', 'Dividing and pre-computing raw texts inside cache databases.')}`,
-            `• ${formatLabelValue('Frontend Stack:', 'None (CLI-driven monitoring logging)')}`,
-            `• ${formatLabelValue('Backend Stack:', 'Node.js, Python, FastAPI')}`,
-            `• ${formatLabelValue('Database:', 'Redis (In-memory storage), MongoDB (Backing)')}`,
-            `• ${formatLabelValue('Architecture:', 'Publisher-Subscriber message queues')}`,
-            `• ${formatLabelValue('Key Features:', 'Regex-based indexing, parallel processing queues')}`,
-            `• ${formatLabelValue('Tech Challenges:', 'Network socket limits and data locks during bulk ingestion')}`,
-            `• ${formatLabelValue('Notable Decisions:', 'Implemented atomic Redis multi-transactions to prevent locks')}`,
-            `• ${formatLabelValue('Current Status:', 'Archived')}`,
-            formatSeparator()
-          ];
-        }
-
-        return [
-          formatTerminalOutput(`Error: Unknown project "${target}".`, 'error'),
-          'Try: inspect rag-book-assistant, inspect analytics-dashboard, or inspect search-indexer'
+        const lines: string[] = [
+          formatSeparator(),
+          `[${formatTerminalOutput('PROJECT: ' + matched.title.toUpperCase(), 'highlight')}]`,
+          formatSeparator(),
+          `• ${formatLabelValue('Description:', matched.description)}`,
+          `• ${formatLabelValue('Category:   ', matched.category.charAt(0).toUpperCase() + matched.category.slice(1))}`,
+          `• ${formatLabelValue('Tech Stack: ', matched.techStack.join(', '))}`,
+          `• ${formatLabelValue('Status:     ', matched.status)}`
         ];
+        if (matched.liveUrl) {
+          lines.push(`• ${formatLabelValue('Live URL:   ', matched.liveUrl)}`);
+        }
+        if (matched.gitUrl) {
+          lines.push(`• ${formatLabelValue('Repository: ', matched.gitUrl)}`);
+        }
+        lines.push(formatSeparator());
+        return lines;
       }
     });
 

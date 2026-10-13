@@ -1,1 +1,29 @@
-/* Custom styles for developer workspace page */
+/* =========================================================
+   WORKSPACE PAGE
+   ========================================================= */
+
+/*
+ * The workspace page host sits inside <main class="flex-grow flex flex-col">.
+ * It must stretch to fill that space so the terminal can
+ * fill the available height between navbar and footer.
+ */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+/*
+ * app-terminal-widget is the direct child.
+ * Make it fill the host.
+ */
+
+:host > app-terminal-widget {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}

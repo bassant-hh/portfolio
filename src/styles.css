@@ -6,8 +6,8 @@
 
 :root {
   /* ── Page Backgrounds ─────────────────────────────*/
-  --bg: #F3F0FF;
-  --bg-subtle: #F8F6FF;
+  --bg: #F8F6FF;
+  --bg-subtle: #F1EEFC;
   --surface: #FFFFFF;
 
   /* ── Purple Brand Scale ─────────────────────── */
@@ -27,6 +27,7 @@
   --text-secondary: #514A67;
   --muted: #6B7280;
 
+
   /* ── Terminal System  ────────────────────────── */
   --terminal: #2E1065;
   --terminal-surface: #4C1D95;
@@ -39,8 +40,8 @@
 }
 
 html, body {
-  background: var(--bg) !important;
-  color: var(--text) !important;
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
   padding: 0;
   min-height: 100%;
@@ -62,7 +63,8 @@ html, body {
 
 /* ── Terminal Semantic Colors ─────────────────────────
    All semantic states use purple shades.
-   .error is distinguished via font-weight, not hue.
+   .error uses --primary (#8B5CF6), a saturated mid-purple
+   that is visually distinct from .highlight (#DDD6FE).
     ───────────────────────────────────────────────────── */
 .highlight {
   color: var(--terminal-highlight) !important; /* #DDD6FE — bright purple-white */
@@ -81,7 +83,7 @@ html, body {
 }
 
 .error {
-  color: var(--terminal-highlight) !important; /* #DDD6FE — distinguished via weight */
+  color: var(--primary) !important; /* #8B5CF6 — mid saturated purple, distinct from highlight */
   font-weight: 600;
 }
 

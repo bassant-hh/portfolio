@@ -4,11 +4,12 @@
   (click)="onClick($event)"
   [ngClass]="[
     'inline-flex items-center justify-center font-sans font-medium rounded-lg text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]',
-    variant === 'primary' 
-      ? 'bg-indigo-600 hover:bg-indigo-500 text-white focus:ring-indigo-500 shadow-sm hover:shadow-md hover:shadow-indigo-500/10' 
-      : 'bg-zinc-800 hover:bg-zinc-700/80 text-zinc-100 border border-zinc-700/60 focus:ring-zinc-500 hover:border-zinc-600',
+    variant === 'primary'
+      ? 'bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white focus:ring-[var(--primary)] shadow-sm hover:shadow-md hover:shadow-purple-500/15'
+      : 'bg-white hover:bg-[var(--very-light)] text-[var(--text)] border border-[var(--border)] focus:ring-[var(--primary-light)] hover:border-[var(--primary-light)] shadow-xs',
+
     size === 'sm' ? 'px-3.5 py-1.5 text-xs' : size === 'lg' ? 'px-6 py-3 text-base' : 'px-5 py-2.5',
-    customClass
+    customClass,
   ]"
 >
   <ng-content></ng-content>

@@ -1,12 +1,17 @@
-<div class="flex flex-col min-h-screen bg-[var(--bg)] text-[var(--text)] font-sans selection:bg-indigo-500/30 selection:text-indigo-200">  <!-- Navbar -->
+<div class="flex flex-col min-h-screen bg-[var(--bg)] text-[var(--text)] font-sans selection:bg-purple-500/30 selection:text-purple-900">
+  <!-- Navbar -->
   <app-navbar></app-navbar>
 
   <!-- Main Outlet -->
-  <main class="flex-grow flex flex-col">
+  <main class="flex-grow flex flex-col min-h-0 w-full">
     <router-outlet></router-outlet>
   </main>
 
-  <!-- Footer -->
-  <app-footer></app-footer>
+  <!-- Footer (Recruiter Mode Only) -->
+  @if (state.uiMode() === 'recruiter') {
+    <app-footer></app-footer>
+  }
 
+  <!-- Ask Bassant AI Assistant Widget -->
+  <app-ai-assistant></app-ai-assistant>
 </div>

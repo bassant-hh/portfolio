@@ -1,21 +1,23 @@
-<div class="flex items-center p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-medium select-none">
+<div class="switcher-track" role="group" aria-label="View mode">
+
   <button
     type="button"
+    class="switcher-btn"
+    [class.switcher-btn-active]="state.uiMode() === 'recruiter'"
     (click)="selectRecruiterMode()"
-    [class]="state.uiMode() === 'recruiter' 
-      ? 'px-3 py-1.5 rounded-md bg-indigo-600 text-white font-semibold shadow-sm transition-all duration-200' 
-      : 'px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors'"
+    [attr.aria-pressed]="state.uiMode() === 'recruiter'"
   >
     Recruiter
   </button>
 
   <button
     type="button"
+    class="switcher-btn"
+    [class.switcher-btn-active]="state.uiMode() === 'developer'"
     (click)="selectDeveloperMode()"
-    [class]="state.uiMode() === 'developer' 
-      ? 'px-3 py-1.5 rounded-md bg-indigo-600 text-white font-semibold shadow-sm transition-all duration-200' 
-      : 'px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors'"
+    [attr.aria-pressed]="state.uiMode() === 'developer'"
   >
     Developer
   </button>
+
 </div>

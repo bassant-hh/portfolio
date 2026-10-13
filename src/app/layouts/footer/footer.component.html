@@ -1,27 +1,66 @@
-﻿<footer class="w-full bg-[#F8F6FF] border-t border-[#E9DDFB] py-8 mt-auto select-none">
- <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
- <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
- <!-- Copyright Info -->
- <div class="text-[#6B7280] text-sm font-sans">
- &copy; {{ currentYear }} Bassant Hossny. All rights reserved.
- </div>
+<!-- =========================================================
+     BASSANT PORTFOLIO FOOTER
+     ========================================================= -->
+<footer class="site-footer">
+  <div class="footer-inner">
 
- <!-- Social Links / Contact -->
- <div class="flex items-center gap-6">
- <a href="mailto:bassant.hossny&#64;gmail.com" 
- class="text-sm text-[#514A67] hover:text-[#7C3AED] transition-colors duration-150">
- bassant.hossny&#64;gmail.com
- </a>
- <span class="h-4 w-px bg-[#DDD6FE]"></span>
- <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
- class="text-sm text-[#514A67] hover:text-[#7C3AED] transition-colors duration-150">
- GitHub
- </a>
- <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" 
- class="text-sm text-[#514A67] hover:text-[#7C3AED] transition-colors duration-150">
- LinkedIn
- </a>
- </div>
- </div>
- </div>
+    <!-- =====================================================
+         Top row: Identity + Links
+         ===================================================== -->
+    <div class="footer-top">
+
+      <!-- Left: Identity -->
+      <div class="footer-identity">
+        <span class="footer-name">Bassant Hossny</span>
+        <span class="footer-role">Software Engineer &amp; Full-Stack Developer</span>
+        <span class="footer-tagline">
+          Building thoughtful web experiences with modern frontend and backend technologies.
+        </span>
+      </div>
+
+      <!-- Right: External links -->
+      <div class="footer-links" role="list" aria-label="Social links">
+
+        <a
+          href="https://github.com/bassant-hh"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          aria-label="Bassant Hossny on GitHub"
+          role="listitem"
+        >
+          <!-- GitHub icon -->
+          <svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.892 1.529 2.341 1.087 2.912.832.092-.647.349-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.104-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.547 1.376.203 2.393.1 2.646.641.698 1.028 1.591 1.028 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          GitHub
+        </a>
+
+        <a
+          href="mailto:bassanthossny400@gmail.com"
+          class="footer-link"
+          aria-label="Send email to Bassant Hossny"
+          role="listitem"
+        >
+
+          <!-- Email icon -->
+          <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+          </svg>
+          Email
+        </a>
+
+      </div>
+    </div>
+
+    <!-- =====================================================
+         Bottom: Copyright
+         ===================================================== -->
+    <div class="footer-bottom">
+      <span class="footer-copy">
+        &copy; {{ currentYear }} Bassant Hossny. All rights reserved.
+      </span>
+    </div>
+
+  </div>
 </footer>

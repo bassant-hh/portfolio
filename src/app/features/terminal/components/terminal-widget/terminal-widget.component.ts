@@ -191,8 +191,8 @@ export class TerminalWidgetComponent {
 
     const systemCmds = [
       'help', 'about', 'bio', 'whoami', 'skills', 'stack', 'projects', 'portfolio',
-      'experience', 'work', 'contact', 'resume', 'cv', 'clear', 'cls', 'inspect', 'bassant',
-      'certificates', 'certs'
+      'experience', 'work', 'contact', 'resume', 'cv', 'clear', 'cls', 'inspect',
+      'certificates', 'certs' , 'bassant'
     ];
 
     if (normCmd.length >= 3 && !systemCmds.includes(normCmd)) {
