@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { detectIntent } from './agent/intent-detector';
@@ -83,18 +84,31 @@ app.post('/api/agent/chat', async (req: Request, res: Response) => {
 // At runtime this file lives at dist/server/server/app.js.
 // __dirname → <project>/dist/server/server/
 // ../../dist/portfolio/browser → <project>/dist/portfolio/browser/
+//
+// On Vercel, the function bundle does NOT contain the Angular build
+// output, so we guard both express.static() and the SPA fallback to
+// avoid crashes when the directory is absent.
 const distBrowser = path.join(__dirname, '../../dist/portfolio/browser');
-app.use(express.static(distBrowser));
+const indexHtmlPath = path.join(distBrowser, 'index.html');
+const hasStaticBuild = fs.existsSync(indexHtmlPath);
+
+if (hasStaticBuild) {
+  app.use(express.static(distBrowser));
+}
 
 // ── SPA fallback (Express 5 — named wildcard syntax) ─────────────
 // Serves index.html for all non-API frontend routes so Angular's
 // client-side router can handle /about, /projects, /skills, etc.
-// Requests starting with /api/ are NOT intercepted here — they fall
+// Requests starting with /api are NOT intercepted here — they fall
 // through to Express's built-in 404 handler, returning JSON errors.
 app.get('/{*path}', (req: Request, res: Response, next: NextFunction) => {
-  if (req.path.startsWith('/api/')) {
+  if (req.path.startsWith('/api')) {
     next();
     return;
   }
-  res.sendFile(path.join(distBrowser, 'index.html'));
+  if (!hasStaticBuild) {
+    next();
+    return;
+  }
+  res.sendFile(indexHtmlPath);
 });
